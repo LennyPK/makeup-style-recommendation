@@ -1,0 +1,19 @@
+questions = [
+    "What is your name? ",
+    "How old are you? ",
+    "Where are you from? ",
+    "What is your favorite color? ",
+    "Do you have any hobbies? ",
+    "What is your profession? "
+]
+
+answers = []
+
+for question in questions:
+    user_input = input(question)
+    answers.append(user_input)
+
+print("\nThank you for answering the questions. Here are your responses:")
+
+for i, answer in enumerate(answers):
+    print(f"Question {i + 1}: {questions[i]}\n{answer}\n\n")
