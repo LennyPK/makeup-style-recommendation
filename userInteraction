@@ -1,19 +1,26 @@
-questions = [
-    "What is your name? ",
-    "How old are you? ",
-    "Where are you from? ",
-    "What is your favorite color? ",
-    "Do you have any hobbies? ",
-    "What is your profession? "
-]
+from quizData import questions, options
 
-answers = []
+user_responses = []
 
-for question in questions:
-    user_input = input(question)
-    answers.append(user_input)
+def get_user_choice(prompt, valid_choices):
+    while True:
+        user_input = input(prompt).strip().upper()
+        if user_input in valid_choices:
+            return user_input
+        else:
+            print("Invalid choice. Please select a valid option.")
 
-print("\nThank you for answering the questions. Here are your responses:")
+for i in range(15):
+    print(questions[i])
+    for j, option in enumerate(options[i]):
+        print(f"{chr(65 + j)}) {option}")
+    user_input = get_user_choice("Your answer (A/B/C/D/E/F/G/H): ", valid_choices=list("ABCDEFGH"))
+    user_responses.append(user_input)
 
-for i, answer in enumerate(answers):
-    print(f"Question {i + 1}: {questions[i]}\n{answer}\n\n")
+print("\nYour responses:")
+for i in range(15):
+    print(f"\n{questions[i]}")
+    print(f"Your response: {options[i][ord(user_responses[i]) - ord('A')]}")
+    
+print("\n")
+print(user_responses)

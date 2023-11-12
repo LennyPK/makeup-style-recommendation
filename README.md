@@ -12,6 +12,30 @@
 
 [Facial Recognition Tutorial](https://www.youtube.com/watch?v=o-x1PE0LVKM&t=251s&ab_channel=CoreElectronics)
 
+[Miniconda](https://docs.conda.io/projects/miniconda/en/latest/)
+
+### Conda Instructions
+```sh
+conda create –n py38 python=3.8
+```
+```sh
+y
+```
+```sh
+conda activate py38
+```
+
+We need to install the above mentioned libraries in order to run our program:
+```sh
+pip install PyQt5
+```
+
+Check if the above programs have been installed:
+```sh
+pip list
+```
+
+
 ## Questions
 1. which one better describes your face shape?
     - rounded
