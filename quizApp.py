@@ -118,34 +118,12 @@ class MainWindow(QMainWindow):
             print(self.user_responses)
             self.current_question_index = 0
             self.progress_bar.setValue(0)
-            self.display_Results_UI() # Display results when the user has finished the quiz
+            self.display_Answers_UI() # Display results when the user has finished the quiz
 
-    def display_Results_UI(self):
+    def display_Answers_UI(self):
         # Remove the existing widgets from the layout
         for i in reversed(range(self.layout.count())):
             self.layout.itemAt(i).widget().setParent(None)
-
-        '''image of style'''
-
-
-        '''Calculate Style'''
-        # Count user responses
-        response_counts = Counter(self.user_responses)
-        majority_response, majority_count = response_counts.most_common(1)[0]
-
-        # Determine the default response
-        if len(response_counts) == 4:
-            # If the user picked an even distribution of letters, default to the second to last letter
-            default_response = sorted(response_counts.keys())[-2]
-        else:
-            # If the user picked a random distribution of letters, default to the majority letter
-            default_response = majority_response
-
-        default_category, default_weight = self.category_weights[default_response]
-
-        '''Display Styles'''
-        category_label = QLabel(default_category)
-        category_label.setFont(QFont('Segoe UI', 20, 75))
 
         # Create a container widget to hold the questions and answers layout
         answers_container = QWidget()
@@ -174,12 +152,12 @@ class MainWindow(QMainWindow):
             answers_layout.addWidget(QnA_widget)
             answers_layout.setSpacing(0)
 
-        # Display retake button for quiz
-        retake_button = QPushButton("Retake Quiz")
-        retake_button.setFont(QFont('Segoe UI', 15))
-        retake_button.setFixedWidth(200)
-        retake_button.setStyleSheet("padding: 5px 20px 5px 20px;")
-        retake_button.clicked.connect(self.start_Quiz_UI)
+        # Display Results button for quiz
+        results_button = QPushButton("View My Results")
+        results_button.setFont(QFont('Segoe UI', 15))
+        results_button.setFixedWidth(200)
+        results_button.setStyleSheet("padding: 5px 20px 5px 20px;")
+        results_button.clicked.connect(self.display_Category_UI)
         
         # Create a scroll area and set the answers container as its widget
         scroll_area = QScrollArea()
@@ -188,11 +166,8 @@ class MainWindow(QMainWindow):
         scroll_area.setFixedHeight(450)
         scroll_area.setFixedWidth(550)
         scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         scroll_area.setStyleSheet("QScrollArea { border: none; }")
-
-        # Enable smooth scrolling using QScroller
-        # scroller = QScroller.scroller(scroll_area.viewport())
-        # scroller.setScrollerProperties(QScrollerProperties(QScroller.ScrollMode(QScroller.ScrollMode.Smooth)))
 
         minimal_vertical_scroll_bar = MinimalScrollBar(QtCore.Qt.Vertical, scroll_area)
         scroll_area.setVerticalScrollBar(minimal_vertical_scroll_bar)
@@ -204,10 +179,50 @@ class MainWindow(QMainWindow):
         # Connect the hover events to show or hide the scroll bars
         scroll_area.enterEvent = lambda event: scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         scroll_area.leaveEvent = lambda event: scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        # scroll_area.enterEvent = lambda event: scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        # scroll_area.leaveEvent = lambda event: scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+
+        self.layout.addWidget(scroll_area, 0, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(results_button, 1, 0, QtCore.Qt.AlignCenter)
+
+    def display_Category_UI(self):
+        # Remove the existing widgets from the layout
+        for i in reversed(range(self.layout.count())):
+            self.layout.itemAt(i).widget().setParent(None)
+
+        '''image of style'''
+
+
+        '''Calculate Style'''
+        # Count user responses
+        response_counts = Counter(self.user_responses)
+        majority_response, majority_count = response_counts.most_common(1)[0]
+
+        # Determine the default response
+        if len(response_counts) == 4:
+            # If the user picked an even distribution of letters, default to the second to last letter
+            default_response = sorted(response_counts.keys())[-2]
+        else:
+            # If the user picked a random distribution of letters, default to the majority letter
+            default_response = majority_response
+
+        default_category, default_weight = self.category_weights[default_response]
+
+        '''Display Styles'''
+        category_label = QLabel(default_category)
+        category_label.setFont(QFont('Segoe UI', 20, 75))
+
+        # Push button to start quiz
+        retake_button = QPushButton("Reake Quiz")
+        retake_button.setFont(QFont('Segoe UI', 15))
+        retake_button.setStyleSheet("background-color: red")  # Change the background color to red and text color to white
+        retake_button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        retake_button.setFixedWidth(200)
+        retake_button.setStyleSheet("padding: 5px 20px 5px 20px;")
+        retake_button.clicked.connect(self.start_Quiz_UI)
 
         self.layout.addWidget(category_label, 0, 0, QtCore.Qt.AlignCenter)
-        self.layout.addWidget(scroll_area, 1, 0, QtCore.Qt.AlignCenter)
-        self.layout.addWidget(retake_button, 2, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(retake_button, 1, 0, QtCore.Qt.AlignCenter)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
