@@ -98,7 +98,7 @@ class MainWindow(QMainWindow):
             option_button = QPushButton(option)
             option_button.setFont(QFont('Segoe UI', 12))
             option_button.clicked.connect(lambda _, j=j: self.handle_option_click(j))
-            option_button.setFixedWidth(400)  # Set fixed width
+            option_button.setFixedWidth(500)  # Set fixed width
             options_layout.addWidget(option_button)
             
         self.layout.addWidget(question_label, 0, 0, alignment=QtCore.Qt.AlignCenter)
