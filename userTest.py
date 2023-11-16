@@ -36,7 +36,7 @@ response_counts = Counter(user_responses)
 majority_response, majority_count = response_counts.most_common(1)[0]
 
 # Determine the default response
-if len(response_counts) == 4:
+if len(response_counts) == 4 and all(count == 3 for count in response_counts.values()):
     # If the user picked an even distribution of letters, default to the second to last letter
     default_response = sorted(response_counts.keys())[-2]
 else:
@@ -59,3 +59,5 @@ default_category, default_weight = category_weights[default_response]
 print("\nDefault Response (Based on Distribution):")
 print(f"Category: {default_category}")
 print(f"Weight: {default_weight}")
+
+print(user_responses)

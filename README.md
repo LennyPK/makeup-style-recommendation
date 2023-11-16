@@ -25,7 +25,7 @@ y
 conda activate py38
 ```
 
-We need to install the above mentioned libraries in order to run our program:
+We need to install the mentioned libraries in order to run our program:
 ```sh
 pip install PyQt5
 ```
