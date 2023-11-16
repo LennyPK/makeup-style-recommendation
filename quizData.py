@@ -170,6 +170,13 @@ options = [
     ]
 ]
 
-descriptions = [
-    
-]
+descriptions = {
+    'Ingenue' : "The Ingenue archetype resembles childlike, gentle, and delicate beauty. It’s the optimal choice for a refreshing-youthful feminine look, as it maintains the round features and creates a fleshy mid-face and plump limps. With more rounded and moderately angular, lower visual weight features. The best makeup styles for you are Energetic Cute, Fiercy Cute, and Sweet & Cool looks.",
+    'Elegant' : "Elegant archetype resembles a gentle, serene, graceful, and delicate persona. It is more formal than the Ingenue archetype, focusing on your femininity rather than your childlike beauty. Based on your archetypes, the best makeup styles for you are French Girl Makeup, Rich Girl Makeup, and Korean Ladylike Makeup.",
+    'Romantic' : "The Romantic archetype resembles a sensuous, soft, alluring, and mature feminine persona. Based on this archetype, the best makeup styles for you are Flirtatious Cute Makeup and Retro Honk Kong Girl Makeup.",
+    'Gamine' : "Refreshing and courageous, the Gamine archetype resembles young and slightly masculine beauty. And its tomboyish vibe matches makeup styles like Airy Boyish and Soft Grunge looks.",
+    'Natural' : "The Natural archetype resembles a casual, easygoing, and friendly persona. Because of that, the best makeup styles for you are the Effortless No Makeup look, Gentle Ladylike look, and Mori Kei Style. These styles create an approachable look with base makeup products.",
+    'Modern' : "The Modern archetype resembles an immaculate, bold, and confident persona. It is vibrant, influential, and attention-grabbing. Based on this archetype, the best makeup styles for you are Cut Crease Eye Makeup, Siren Makeup, and Smokey Eye Makeup.",
+    'Classic' : "The Classic Archetype: The rarest archetype, moderate to high visual weight and neither very angular and sharp nor very rounded and soft.",
+    'Dramatic' : "The Dramatic archetype resembles dignity, intensity, extravagance, and charisma. Based on this archetype, the best makeup styles for you are Thai Makeup and Fiery Mean Makeup."
+}

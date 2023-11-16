@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5 import QtCore
 from collections import Counter
 
-from quizData import questions, options
+from quizData import *
 from modifiedScroll import MinimalScrollBar
 
 class MainWindow(QMainWindow):
@@ -155,7 +155,7 @@ class MainWindow(QMainWindow):
         # Display Results button for quiz
         results_button = QPushButton("View My Results")
         results_button.setFont(QFont('Segoe UI', 15))
-        results_button.setFixedWidth(200)
+        results_button.setFixedWidth(300)
         results_button.setStyleSheet("padding: 5px 20px 5px 20px;")
         results_button.clicked.connect(self.display_Category_UI)
         
@@ -212,8 +212,14 @@ class MainWindow(QMainWindow):
         category_label = QLabel(default_category)
         category_label.setFont(QFont('Segoe UI', 20, 75))
 
+        # Display category description
+        description_label = QLabel(descriptions.get(default_category, "No description available."))
+        description_label.setFont(QFont('Segoe UI', 12, italic=True))
+        description_label.setWordWrap(True)
+        description_label.setAlignment(QtCore.Qt.AlignCenter)
+
         # Push button to start quiz
-        retake_button = QPushButton("Reake Quiz")
+        retake_button = QPushButton("Retake Quiz")
         retake_button.setFont(QFont('Segoe UI', 15))
         retake_button.setStyleSheet("background-color: red")  # Change the background color to red and text color to white
         retake_button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
@@ -222,7 +228,8 @@ class MainWindow(QMainWindow):
         retake_button.clicked.connect(self.start_Quiz_UI)
 
         self.layout.addWidget(category_label, 0, 0, QtCore.Qt.AlignCenter)
-        self.layout.addWidget(retake_button, 1, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(description_label, 1, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(retake_button, 2, 0, QtCore.Qt.AlignCenter)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
