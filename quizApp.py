@@ -6,6 +6,7 @@ from PyQt5 import QtCore
 from collections import Counter
 
 from quizData import questions, options
+from modifiedScroll import MinimalScrollBar
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -68,6 +69,12 @@ class MainWindow(QMainWindow):
         self.button.setStyleSheet("padding: 5px 20px 5px 20px;")
         self.button.clicked.connect(self.start_Quiz_UI)
 
+        # Progress of quiz
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setRange(0, len(self.questions))
+        self.progress_bar.setValue(0)
+        self.progress_bar.setTextVisible(False)
+
         self.layout.addWidget(icon_label, 0, 0, QtCore.Qt.AlignCenter)
         self.layout.addWidget(self.label, 1, 0)
         self.layout.addWidget(self.button, 2, 0, QtCore.Qt.AlignCenter)
@@ -96,17 +103,21 @@ class MainWindow(QMainWindow):
             
         self.layout.addWidget(question_label, 0, 0, alignment=QtCore.Qt.AlignCenter)
         self.layout.addWidget(options_container, 1, 0, alignment=QtCore.Qt.AlignCenter)
+        self.layout.addWidget(self.progress_bar)
 
     def handle_option_click(self, option_index):
         print(f"Question {self.current_question_index + 1}, Option {chr(65 + option_index)} clicked.")
         self.current_question_index += 1  # Move to the next question
         self.user_responses.append(chr(65 + option_index))
+        self.progress_bar.setValue(self.current_question_index)
+
         if self.current_question_index < len(self.questions):
             self.start_Quiz_UI()  # Display the next question
         else:
             print("Quiz completed.")
             print(self.user_responses)
             self.current_question_index = 0
+            self.progress_bar.setValue(0)
             self.display_Results_UI() # Display results when the user has finished the quiz
 
     def display_Results_UI(self):
@@ -170,8 +181,29 @@ class MainWindow(QMainWindow):
         retake_button.setStyleSheet("padding: 5px 20px 5px 20px;")
         retake_button.clicked.connect(self.start_Quiz_UI)
         
+        # Create a scroll area and set the answers container as its widget
+        scroll_area = QScrollArea()
+        scroll_area.setWidget(answers_container)
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setFixedHeight(450)
+        scroll_area.setFixedWidth(550)
+        scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        scroll_area.setStyleSheet("QScrollArea { border: none; }")
+
+        # Enable smooth scrolling using QScroller
+        # scroller = QScroller.scroller(scroll_area.viewport())
+        # scroller.setScrollerProperties(QScrollerProperties(QScroller.ScrollMode(QScroller.ScrollMode.Smooth)))
+
+        minimal_scroll_bar = MinimalScrollBar(QtCore.Qt.Vertical, scroll_area)
+        scroll_area.setVerticalScrollBar(minimal_scroll_bar)
+        minimal_scroll_bar.setSingleStep(7)
+
+        # Connect the hover events to show or hide the scroll bars
+        scroll_area.enterEvent = lambda event: scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        scroll_area.leaveEvent = lambda event: scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+
         self.layout.addWidget(category_label, 0, 0, QtCore.Qt.AlignCenter)
-        self.layout.addWidget(answers_container, 1, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(scroll_area, 1, 0, QtCore.Qt.AlignCenter)
         self.layout.addWidget(retake_button, 2, 0, QtCore.Qt.AlignCenter)
 
 if __name__ == "__main__":
