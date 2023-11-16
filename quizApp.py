@@ -196,6 +196,7 @@ class MainWindow(QMainWindow):
 
         minimal_scroll_bar = MinimalScrollBar(QtCore.Qt.Vertical, scroll_area)
         scroll_area.setVerticalScrollBar(minimal_scroll_bar)
+        scroll_area.setHorizontalScrollBar(minimal_scroll_bar)
         minimal_scroll_bar.setSingleStep(7)
 
         # Connect the hover events to show or hide the scroll bars
