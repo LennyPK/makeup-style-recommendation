@@ -194,10 +194,12 @@ class MainWindow(QMainWindow):
         # scroller = QScroller.scroller(scroll_area.viewport())
         # scroller.setScrollerProperties(QScrollerProperties(QScroller.ScrollMode(QScroller.ScrollMode.Smooth)))
 
-        minimal_scroll_bar = MinimalScrollBar(QtCore.Qt.Vertical, scroll_area)
-        scroll_area.setVerticalScrollBar(minimal_scroll_bar)
-        scroll_area.setHorizontalScrollBar(minimal_scroll_bar)
-        minimal_scroll_bar.setSingleStep(7)
+        minimal_vertical_scroll_bar = MinimalScrollBar(QtCore.Qt.Vertical, scroll_area)
+        scroll_area.setVerticalScrollBar(minimal_vertical_scroll_bar)
+
+        minimal_horizontal_scroll_bar = MinimalScrollBar(QtCore.Qt.Horizontal, scroll_area)
+        scroll_area.setHorizontalScrollBar(minimal_horizontal_scroll_bar)
+        minimal_vertical_scroll_bar.setSingleStep(7)
 
         # Connect the hover events to show or hide the scroll bars
         scroll_area.enterEvent = lambda event: scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
