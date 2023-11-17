@@ -19,8 +19,8 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("The Makeup Guide")
         self.setWindowIcon(QIcon('icon.png'))
-        self.setGeometry(300, 300, int(self.monitor_width*0.4) , int(self.monitor_height*0.6))
-        self.setFixedSize(int(self.monitor_width*0.4) , int(self.monitor_height*0.6))
+        self.setGeometry(300, 300, int(self.monitor_width*0.6) , int(self.monitor_height*0.8))
+        self.setFixedSize(int(self.monitor_width*0.6) , int(self.monitor_height*0.8))
 
         '''Center the window'''
         win_info = self.frameGeometry()
@@ -68,7 +68,7 @@ class MainWindow(QMainWindow):
 
         # Push button to start quiz
         self.button = QPushButton("Take Quiz")
-        self.button.setFont(QFont('Segoe UI', int(self.monitor_width*0.0075)))
+        self.button.setFont(QFont('Segoe UI', int(self.monitor_width*0.005)))
         self.button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.button.setFixedWidth(int(self.monitor_width*0.1))
         self.button.setStyleSheet("padding: 5px 20px 5px 20px;")
@@ -100,7 +100,7 @@ class MainWindow(QMainWindow):
 
         # Display current question
         question_label = QLabel(self.questions[self.current_question_index])
-        question_label.setFont(QFont('Segoe UI', int(self.monitor_width*0.007)))
+        question_label.setFont(QFont('Segoe UI', int(self.monitor_width*0.0045)))
 
         # Create a container widget to hold the options layout
         options_container = QWidget()
@@ -109,7 +109,7 @@ class MainWindow(QMainWindow):
         # Display options
         for j, option in enumerate(self.options[self.current_question_index]):
             option_button = QPushButton(option)
-            option_button.setFont(QFont('Segoe UI', int(self.monitor_width*0.006)))
+            option_button.setFont(QFont('Segoe UI', int(self.monitor_width*0.0045)))
             option_button.clicked.connect(lambda _, j=j: self.handle_option_click(j))
             option_button.setFixedWidth(int(self.monitor_width*0.25))  # Set fixed width
             options_layout.addWidget(option_button)
@@ -173,7 +173,7 @@ class MainWindow(QMainWindow):
 
         # Display Results button for quiz
         results_button = QPushButton("View My Results")
-        results_button.setFont(QFont('Segoe UI', int(self.monitor_width*0.0075)))
+        results_button.setFont(QFont('Segoe UI', int(self.monitor_width*0.005)))
         results_button.setFixedWidth(int(self.monitor_width*0.15))
         results_button.setStyleSheet("padding: 5px 20px 5px 20px;")
         results_button.clicked.connect(self.display_Category_UI)
@@ -252,7 +252,7 @@ class MainWindow(QMainWindow):
 
         # Display category description
         description_label = QLabel(descriptions.get(default_category, "No description available."))
-        description_label.setFont(QFont('Segoe UI', int(self.monitor_width*0.006), italic=True))
+        description_label.setFont(QFont('Segoe UI', int(self.monitor_width*0.0055), italic=True))
         description_label.setWordWrap(True)
         description_label.setAlignment(QtCore.Qt.AlignCenter)
 
@@ -265,7 +265,7 @@ class MainWindow(QMainWindow):
 
         # Push button to start quiz
         retake_button = QPushButton("Retake Quiz")
-        retake_button.setFont(QFont('Segoe UI', int(self.monitor_width*0.0075)))
+        retake_button.setFont(QFont('Segoe UI', int(self.monitor_width*0.005)))
         retake_button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         retake_button.setFixedWidth(int(self.monitor_width*0.1))
         retake_button.setStyleSheet("padding: 5px 20px 5px 20px;")
