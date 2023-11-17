@@ -1,3 +1,6 @@
+'''
+Holds String variables that are used in quizApp to maintain readability of code
+'''
 
 questions = [
     "Which one better describes your face shape?",

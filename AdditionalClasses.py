@@ -1,8 +1,13 @@
+'''
+Additional classes used in quizApp
+'''
+
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QScrollBar, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem
 from PyQt5.QtGui import QPixmap, QPainter, QPainterPath, QImage, QColor
 
+# Custom Minimal Scroll Bar for vertical and horizontal orientation
 class MinimalScrollBar(QScrollBar):
     def __init__(self, orientation, *args, **kwargs):
         super(MinimalScrollBar, self).__init__(orientation, *args, **kwargs)
@@ -67,8 +72,7 @@ class MinimalScrollBar(QScrollBar):
                 }
             """)
 
-
-
+# Circle Crop Images which returns a QPixmap object
 class CircularImageCutter:
     def __init__(self, image_path, diameter):
         self.image_path = image_path

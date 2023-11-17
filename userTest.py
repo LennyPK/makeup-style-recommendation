@@ -1,3 +1,9 @@
+'''
+Main logic of quiz
+Prints to terminal of user's best style
+Weights are assigned to categories to weigh user's style based on user responses
+'''
+
 from quizData import questions, options
 from collections import Counter
 
@@ -15,6 +21,7 @@ category_weights = {
     'H': ('Dramatic', 13)
 }
 
+# User input validation
 def get_user_choice(prompt, valid_choices):
     while True:
         user_input = input(prompt).strip().upper()
@@ -54,7 +61,7 @@ for i in range(15):
     print(f"Category: {category}")
     print(f"Weight: {weight}")
 
-# Display the default response
+# Display the default category based on user response
 default_category, default_weight = category_weights[default_response]
 print("\nDefault Response (Based on Distribution):")
 print(f"Category: {default_category}")
