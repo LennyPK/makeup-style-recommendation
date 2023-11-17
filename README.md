@@ -1,20 +1,25 @@
 # Makeup Style Recommendation
 
-## To do 
-1. get questions for makeup style
-2. make the database
-3. facial recognition
-
 ## Resources
 [Question List](https://www.quizexpo.com/dear-peachie-makeup-quiz/)
+
+[Miniconda](https://docs.conda.io/projects/miniconda/en/latest/)
 
 [Raspberry Pi Documentation](https://www.raspberrypi.com/documentation/)
 
 [Facial Recognition Tutorial](https://www.youtube.com/watch?v=o-x1PE0LVKM&t=251s&ab_channel=CoreElectronics)
 
-[Miniconda](https://docs.conda.io/projects/miniconda/en/latest/)
+# Running the app
 
-### Conda Instructions
+## Launching the executable
+Open `quizApp.exe`
+
+or alternatively:
+
+## Launching the app using code
+Download and Install Miniconda
+
+Open Anaconda Prompt and enter the following instruction:
 ```sh
 conda create –n py38 python=3.8
 ```
@@ -34,7 +39,36 @@ Check if the above programs have been installed:
 ```sh
 pip list
 ```
+### In VSCode
+Open `quizApp.py`
+```
+Ctrl + Shift + P 
+```
+> Python: Select Interpreter
 
+Select the `py38` environment you created using miniconda
+
+```
+Run without Debugging (Ctrl+F5)
+```
+
+# File Documentation
+### quizApp.py
+
+### AdditionalClasses.py
+
+### quizData.py
+
+### userInteraction.py
+
+### userTest.py
+
+### CategoryArchetypes
+
+### CategoryImages
+
+### QuestionImages
+Contains images for each question
 
 ## Questions
 1. which one better describes your face shape?
