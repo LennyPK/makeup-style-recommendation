@@ -6,7 +6,7 @@ from PyQt5 import QtCore
 from collections import Counter
 
 from quizData import *
-from modifiedScroll import MinimalScrollBar
+from MinimalScrollBar import MinimalScrollBar
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -14,7 +14,8 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("The Makeup Guide")
         self.setWindowIcon(QIcon('icon.png'))
-        self.setGeometry(300, 300, 600, 600)
+        self.setGeometry(300, 300, 800, 800)
+        self.setFixedSize(800,800)
 
         '''Center the window'''
         win_info = self.frameGeometry()
@@ -63,7 +64,6 @@ class MainWindow(QMainWindow):
         # Push button to start quiz
         self.button = QPushButton("Take Quiz")
         self.button.setFont(QFont('Segoe UI', 15))
-        self.button.setStyleSheet("background-color: red")  # Change the background color to red and text color to white
         self.button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.button.setFixedWidth(200)
         self.button.setStyleSheet("padding: 5px 20px 5px 20px;")
@@ -74,6 +74,7 @@ class MainWindow(QMainWindow):
         self.progress_bar.setRange(0, len(self.questions))
         self.progress_bar.setValue(0)
         self.progress_bar.setTextVisible(False)
+        self.progress_bar.setFixedWidth(550)
 
         self.layout.addWidget(icon_label, 0, 0, QtCore.Qt.AlignCenter)
         self.layout.addWidget(self.label, 1, 0)
@@ -152,6 +153,11 @@ class MainWindow(QMainWindow):
             answers_layout.addWidget(QnA_widget)
             answers_layout.setSpacing(0)
 
+        # Your Results Label
+        your_answers_label = QLabel("Your Answers!")
+        your_answers_label.setFont(QFont('Segoe UI', 20, 50, italic=True))
+        your_answers_label.setAlignment(QtCore.Qt.AlignCenter)
+
         # Display Results button for quiz
         results_button = QPushButton("View My Results")
         results_button.setFont(QFont('Segoe UI', 15))
@@ -163,7 +169,7 @@ class MainWindow(QMainWindow):
         scroll_area = QScrollArea()
         scroll_area.setWidget(answers_container)
         scroll_area.setWidgetResizable(True)
-        scroll_area.setFixedHeight(450)
+        scroll_area.setFixedHeight(600)
         scroll_area.setFixedWidth(550)
         scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
@@ -182,16 +188,14 @@ class MainWindow(QMainWindow):
         # scroll_area.enterEvent = lambda event: scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         # scroll_area.leaveEvent = lambda event: scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
-        self.layout.addWidget(scroll_area, 0, 0, QtCore.Qt.AlignCenter)
-        self.layout.addWidget(results_button, 1, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(your_answers_label, 0, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(scroll_area, 1, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(results_button, 2, 0, QtCore.Qt.AlignCenter)
 
     def display_Category_UI(self):
         # Remove the existing widgets from the layout
         for i in reversed(range(self.layout.count())):
             self.layout.itemAt(i).widget().setParent(None)
-
-        '''image of style'''
-
 
         '''Calculate Style'''
         # Count user responses
@@ -212,24 +216,56 @@ class MainWindow(QMainWindow):
         category_label = QLabel(default_category)
         category_label.setFont(QFont('Segoe UI', 20, 75))
 
+        # Display Category Images
+
+        category_img_layout = QHBoxLayout()
+
+        category_img_one = QLabel()
+        cat_img_one_pixmap = QPixmap(f'CategoryImages/{default_category}1.jpg')  # Replace with the path to your image file
+        scaled_img_one_pixmap = cat_img_one_pixmap.scaledToHeight(200)
+        category_img_one.setPixmap(scaled_img_one_pixmap)
+        category_img_one.setAlignment(QtCore.Qt.AlignRight) 
+
+        category_img_two = QLabel()
+        cat_img_two_pixmap = QPixmap(f'CategoryImages/{default_category}2.jpg')  # Replace with the path to your image file
+        scaled_img_two_pixmap = cat_img_two_pixmap.scaledToHeight(200)
+        category_img_two.setPixmap(scaled_img_two_pixmap)
+        category_img_two.setAlignment(QtCore.Qt.AlignLeft)
+
+        # Add the images to the horizontal layout
+        category_img_layout.addWidget(category_img_one)
+        category_img_layout.addWidget(category_img_two)
+
+        # Create a container widget for the horizontal layout
+        category_img_container = QWidget()
+        category_img_container.setLayout(category_img_layout)
+
         # Display category description
         description_label = QLabel(descriptions.get(default_category, "No description available."))
         description_label.setFont(QFont('Segoe UI', 12, italic=True))
         description_label.setWordWrap(True)
         description_label.setAlignment(QtCore.Qt.AlignCenter)
 
+        # Display Category Archetypes
+        archetype_image = QLabel()
+        archetype_pixmap = QPixmap(f'CategoryArchetypes/{default_category}.png')  # Replace with the path to your image file
+        scaled_archetype_pixmap = archetype_pixmap.scaledToHeight(350)
+        archetype_image.setPixmap(scaled_archetype_pixmap)
+        archetype_image.setAlignment(QtCore.Qt.AlignCenter)      
+
         # Push button to start quiz
         retake_button = QPushButton("Retake Quiz")
         retake_button.setFont(QFont('Segoe UI', 15))
-        retake_button.setStyleSheet("background-color: red")  # Change the background color to red and text color to white
         retake_button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         retake_button.setFixedWidth(200)
         retake_button.setStyleSheet("padding: 5px 20px 5px 20px;")
         retake_button.clicked.connect(self.start_Quiz_UI)
 
         self.layout.addWidget(category_label, 0, 0, QtCore.Qt.AlignCenter)
-        self.layout.addWidget(description_label, 1, 0, QtCore.Qt.AlignCenter)
-        self.layout.addWidget(retake_button, 2, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(category_img_container, 1, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(description_label, 2, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(archetype_image, 3, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(retake_button, 4, 0, QtCore.Qt.AlignCenter)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
