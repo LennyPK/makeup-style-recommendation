@@ -6,7 +6,7 @@ from PyQt5 import QtCore
 from collections import Counter
 
 from quizData import *
-from MinimalScrollBar import MinimalScrollBar
+from AdditionalClasses import *
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -221,14 +221,14 @@ class MainWindow(QMainWindow):
         category_img_layout = QHBoxLayout()
 
         category_img_one = QLabel()
-        cat_img_one_pixmap = QPixmap(f'CategoryImages/{default_category}1.jpg')  # Replace with the path to your image file
-        scaled_img_one_pixmap = cat_img_one_pixmap.scaledToHeight(200)
+        cat_img_one_pixmap = CircularImageCutter(f'CategoryImages/{default_category}1.jpg', 200)  # Replace with the path to your image file
+        scaled_img_one_pixmap = cat_img_one_pixmap.create_circular_pixmap()
         category_img_one.setPixmap(scaled_img_one_pixmap)
         category_img_one.setAlignment(QtCore.Qt.AlignRight) 
 
         category_img_two = QLabel()
-        cat_img_two_pixmap = QPixmap(f'CategoryImages/{default_category}2.jpg')  # Replace with the path to your image file
-        scaled_img_two_pixmap = cat_img_two_pixmap.scaledToHeight(200)
+        cat_img_two_pixmap = CircularImageCutter(f'CategoryImages/{default_category}2.jpg', 200)  # Replace with the path to your image file
+        scaled_img_two_pixmap = cat_img_two_pixmap.create_circular_pixmap()
         category_img_two.setPixmap(scaled_img_two_pixmap)
         category_img_two.setAlignment(QtCore.Qt.AlignLeft)
 
@@ -261,6 +261,8 @@ class MainWindow(QMainWindow):
         retake_button.setStyleSheet("padding: 5px 20px 5px 20px;")
         retake_button.clicked.connect(self.start_Quiz_UI)
 
+        self.user_responses = []
+ 
         self.layout.addWidget(category_label, 0, 0, QtCore.Qt.AlignCenter)
         self.layout.addWidget(category_img_container, 1, 0, QtCore.Qt.AlignCenter)
         self.layout.addWidget(description_label, 2, 0, QtCore.Qt.AlignCenter)

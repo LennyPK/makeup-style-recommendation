@@ -1,5 +1,7 @@
-from PyQt5.QtWidgets import QScrollBar
 from PyQt5 import QtCore
+from PyQt5.QtCore import Qt, QRectF
+from PyQt5.QtWidgets import QScrollBar, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem
+from PyQt5.QtGui import QPixmap, QPainter, QPainterPath, QImage, QColor
 
 class MinimalScrollBar(QScrollBar):
     def __init__(self, orientation, *args, **kwargs):
@@ -64,3 +66,37 @@ class MinimalScrollBar(QScrollBar):
                     background: none;
                 }
             """)
+
+
+
+class CircularImageCutter:
+    def __init__(self, image_path, diameter):
+        self.image_path = image_path
+        self.diameter = diameter
+
+    def create_circular_pixmap(self):
+        # Load the image
+        original_pixmap = QPixmap(self.image_path)
+
+        # Create a new QPixmap with an alpha channel
+        circular_image = QPixmap(self.diameter, self.diameter)
+        circular_image.fill(Qt.transparent)
+
+        # Create a QPainter to paint on the new QPixmap
+        painter = QPainter(circular_image)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        # Create a QPainterPath to define the clipping region as a circle
+        clip_path = QPainterPath()
+        clip_path.addEllipse(0, 0, self.diameter, self.diameter)
+
+        # Set the clipping region to ensure the image is drawn only inside the circle
+        painter.setClipPath(clip_path)
+
+        # Scale and draw the original image onto the circular QPixmap
+        painter.drawPixmap(0, 0, self.diameter, self.diameter, original_pixmap)
+
+        # End painting
+        painter.end()
+
+        return circular_image
