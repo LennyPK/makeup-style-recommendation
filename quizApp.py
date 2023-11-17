@@ -89,7 +89,7 @@ class MainWindow(QMainWindow):
         # Display Question Image
         question_image = QLabel()
         question_pixmap = QPixmap(f'QuestionImages/q{self.current_question_index + 1}.jpg')
-        question_scaled_pixmap = question_pixmap.scaledToHeight(350)
+        question_scaled_pixmap = question_pixmap.scaledToHeight(250)
         question_image.setPixmap(question_scaled_pixmap)
         question_image.setAlignment(QtCore.Qt.AlignCenter)  
 
