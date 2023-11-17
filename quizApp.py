@@ -86,6 +86,13 @@ class MainWindow(QMainWindow):
         for i in reversed(range(self.layout.count())):
             self.layout.itemAt(i).widget().setParent(None)
 
+        # Display Question Image
+        question_image = QLabel()
+        question_pixmap = QPixmap(f'QuestionImages/q{self.current_question_index + 1}.jpg')
+        question_scaled_pixmap = question_pixmap.scaledToHeight(350)
+        question_image.setPixmap(question_scaled_pixmap)
+        question_image.setAlignment(QtCore.Qt.AlignCenter)  
+
         # Display current question
         question_label = QLabel(self.questions[self.current_question_index])
         question_label.setFont(QFont('Segoe UI', 14))
@@ -102,8 +109,9 @@ class MainWindow(QMainWindow):
             option_button.setFixedWidth(500)  # Set fixed width
             options_layout.addWidget(option_button)
             
-        self.layout.addWidget(question_label, 0, 0, alignment=QtCore.Qt.AlignCenter)
-        self.layout.addWidget(options_container, 1, 0, alignment=QtCore.Qt.AlignCenter)
+        self.layout.addWidget(question_image, 0, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(question_label, 1, 0, QtCore.Qt.AlignCenter)
+        self.layout.addWidget(options_container, 2, 0, QtCore.Qt.AlignCenter)
         self.layout.addWidget(self.progress_bar)
 
     def handle_option_click(self, option_index):
@@ -185,8 +193,6 @@ class MainWindow(QMainWindow):
         # Connect the hover events to show or hide the scroll bars
         scroll_area.enterEvent = lambda event: scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         scroll_area.leaveEvent = lambda event: scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        # scroll_area.enterEvent = lambda event: scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        # scroll_area.leaveEvent = lambda event: scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
         self.layout.addWidget(your_answers_label, 0, 0, QtCore.Qt.AlignCenter)
         self.layout.addWidget(scroll_area, 1, 0, QtCore.Qt.AlignCenter)
@@ -217,17 +223,16 @@ class MainWindow(QMainWindow):
         category_label.setFont(QFont('Segoe UI', 20, 75))
 
         # Display Category Images
-
         category_img_layout = QHBoxLayout()
 
         category_img_one = QLabel()
-        cat_img_one_pixmap = CircularImageCutter(f'CategoryImages/{default_category}1.jpg', 200)  # Replace with the path to your image file
+        cat_img_one_pixmap = CircularImageCutter(f'CategoryImages/{default_category}1.jpg', 200)
         scaled_img_one_pixmap = cat_img_one_pixmap.create_circular_pixmap()
         category_img_one.setPixmap(scaled_img_one_pixmap)
         category_img_one.setAlignment(QtCore.Qt.AlignRight) 
 
         category_img_two = QLabel()
-        cat_img_two_pixmap = CircularImageCutter(f'CategoryImages/{default_category}2.jpg', 200)  # Replace with the path to your image file
+        cat_img_two_pixmap = CircularImageCutter(f'CategoryImages/{default_category}2.jpg', 200)
         scaled_img_two_pixmap = cat_img_two_pixmap.create_circular_pixmap()
         category_img_two.setPixmap(scaled_img_two_pixmap)
         category_img_two.setAlignment(QtCore.Qt.AlignLeft)
@@ -248,7 +253,7 @@ class MainWindow(QMainWindow):
 
         # Display Category Archetypes
         archetype_image = QLabel()
-        archetype_pixmap = QPixmap(f'CategoryArchetypes/{default_category}.png')  # Replace with the path to your image file
+        archetype_pixmap = QPixmap(f'CategoryArchetypes/{default_category}.png')
         scaled_archetype_pixmap = archetype_pixmap.scaledToHeight(350)
         archetype_image.setPixmap(scaled_archetype_pixmap)
         archetype_image.setAlignment(QtCore.Qt.AlignCenter)      
