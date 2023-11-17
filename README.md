@@ -54,22 +54,33 @@ Run without Debugging (Ctrl+F5)
 
 # File Documentation
 ### quizApp.py
-
+Main files that the quiz runs off of. 
+Contains one class for simplicity.
+Used PyQt5 to make an application for the quiz
+Used adjustable lengths using monitor dimensions, 
+so that the quiz will be displayed equally across different sized monitors
+Integrated the logic from UserTest with the application
+All elements are center aligned.
 ### AdditionalClasses.py
-
+Additional classes used in quizApp.
 ### quizData.py
-
-### userInteraction.py
-
+Questions, answers and category descriptions. 
+Holds String variables that are used in quizApp to maintain readability of code.
 ### userTest.py
-
+Main logic of quiz.
+Prints to terminal of user's best style.
+Weights are assigned to categories to weigh user's style based on user responses.
+### userInteraction.py
+Sample Code of how basic quiz is meant to work.
+Collects all the responses and prints the responses in the terminal.
 ### CategoryArchetypes
-
+Contains images for the Archetype subsidiary styles.
 ### CategoryImages
-
+Contains images for the Archetype results.
 ### QuestionImages
-Contains images for each question
+Contains images for each question.
 
+For a more detailed documentation, please review the code files.
 ## Questions
 1. which one better describes your face shape?
     - rounded
